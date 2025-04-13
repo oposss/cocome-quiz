@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ココメ診断スタート</title>
+</head>
+<body>
+  <h1>ココメ診断クイズ</h1>
+  <form action="/result" method="post">
+    <p>質問1: 朝型ですか？</p>
+    <select name="q1">
+      <option value="0">いいえ</option>
+      <option value="1">はい</option>
+    </select>
+
+    <p>質問2: 人前で話すのが好きですか？</p>
+    <select name="q2">
+      <option value="0">いいえ</option>
+      <option value="1">はい</option>
+    </select>
+
+    <p>質問3: おだやかな性格ですか？</p>
+    <select name="q3">
+      <option value="0">いいえ</option>
+      <option value="1">はい</option>
+    </select>
+
+    <br><br>
+    <button type="submit">診断する</button>
+  </form>
+</body>
+</html>
