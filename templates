@@ -1,1 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>診断結果</title>
+</head>
+<body>
+  <h1>診断結果</h1>
+  <p>あなたのタイプは：{{ result_type }}</p>
+  <img src="/static/{{ result_type }}.png" alt="{{ result_type }}タイプの画像">
+</body>
+</html>
 
