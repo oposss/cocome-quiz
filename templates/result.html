@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>診断結果</title>
+</head>
+<body>
+  <h1>診断結果</h1>
+  <p>あなたのタイプは：{{ result_type }}</p>
+  {% if result_type == 'cocome_fuwafuwa' %}
+    <img src="/static/A.png" alt="ふわふわタイプ">
+  {% elif result_type == 'cocome_majime' %}
+    <img src="/static/B.png" alt="まじめタイプ">
+  {% else %}
+    <img src="/static/C.png" alt="その他タイプ">
+  {% endif %}
+  <br><br>
+  <a href="/">もう一度診断する</a>
+</body>
+</html>
