@@ -8,7 +8,7 @@ def index():
 
 @app.route("/result", methods=["POST"])
 def result():
-    score = int(request.form["q1"]) + int(request.form["q2"]) + int(request.form["q3"])
+    score = sum(int(request.form.get(f"q{i}", 0)) for i in range(1, 9))
 
     if score <= 3:
         result_type = "cocome_fuwafuwa"
