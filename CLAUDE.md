@@ -1,37 +1,32 @@
-# cocome-quiz
+# CLAUDE.md
 
-ココメ診断クイズ - Vercel にデプロイされた Flask アプリ。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## プロジェクト構成
-
-```
-api/index.py        # Flask アプリ本体（Vercel エントリーポイント）
-templates/
-  index.html        # トップページ（3問のクイズフォーム）
-  result.html       # 診断結果ページ
-static/
-  A.png / B.png / C.png  # 結果タイプ別の画像
-vercel.json         # Vercel デプロイ設定
-requirements.txt    # Flask==2.3.2
-```
-
-## 起動方法
+## Running Locally
 
 ```bash
 pip install -r requirements.txt
-FLASK_APP=api/index.py flask run --port 5000
+flask --app api/index.py run
 ```
 
-## 開発ブランチ
+The app runs on `http://localhost:5000` by default.
 
-`claude/claude-md-review-x40kF` で開発中。
+## Architecture
 
-## 未完了タスク
+This is a Japanese personality quiz app ("ココメ診断") built with Flask and deployed to Vercel.
 
-- [ ] リモートへのプッシュ（前セッションで 403 エラー。Settings → Actions → General → Workflow permissions を「Read and write permissions」に変更済みのため、新セッションでは `git push -u origin claude/claude-md-review-x40kF` を実行する）
+**Entry point:** `api/index.py` — the Flask app. Vercel routes all traffic here via `vercel.json`. The app has two routes:
+- `GET /` — renders `templates/index.html` (quiz form with 3 yes/no questions)
+- `POST /result` — sums scores from `q1`, `q2`, `q3` and renders `templates/result.html` with a `result_type` string
 
-## スコアロジック（api/index.py）
+**Scoring logic** (in `api/index.py`): each question contributes 0 or 1 to a total score (max 3). The score maps to one of five personality types: `cocome_fuwafuwa`, `cocome_majime`, `cocome_tension`, `cocome_tsundere`, `cocome_uranai`.
 
-3問、各0か1で回答 → 合計スコアで結果タイプを判定。
-現状スコア最大3なので `cocome_fuwafuwa` のみ到達可能。
-他タイプ（majime / tension / tsundere / uranai）を到達可能にするには質問数を増やす必要がある。
+**Static assets:** `A.png`, `B.png`, `C.png` are character images likely used in result display. `static/` and `templates/` are referenced by Flask but currently empty/placeholder.
+
+**`app.py`** at root is a placeholder and not used — the real app is `api/index.py`.
+
+**`ramen_story.html`** is a standalone animated story page (Japanese ramen shop narrative), not connected to the quiz app.
+
+## Deployment
+
+Deployed on Vercel. `vercel.json` points all routes to `api/index.py` using `@vercel/python`. Push to `main` to deploy.
