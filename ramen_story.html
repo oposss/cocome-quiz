@@ -349,6 +349,24 @@ document.addEventListener('keydown',e=>{
   if(e.code==='KeyT'){e.preventDefault();thumb();}
 });
 
+function resize(){
+  const ctrlH=185,pad=10;
+  const sh=window.innerHeight-ctrlH-pad*2;
+  const sw=window.innerWidth-pad*2;
+  const scale=Math.min(sh/960,sw/540,1);
+  const stg=document.getElementById('stage');
+  stg.style.transform=`scale(${scale})`;
+  stg.style.transformOrigin='top center';
+  stg.style.marginBottom=Math.round((scale-1)*960)+'px';
+  const uw=Math.round(540*scale)+'px';
+  ['timeline','crow','dots','kbh','script'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e){e.style.width=uw;e.style.maxWidth=uw;}
+  });
+}
+window.addEventListener('resize',resize);
+resize();
+
 show(0,false);ui();
 </script>
 </body>
