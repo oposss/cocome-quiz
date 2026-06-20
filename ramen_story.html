@@ -110,9 +110,17 @@ body {
 .sv { color:#ddd; font-size:.8rem; margin-bottom:2px; }
 .sm { color:#484848; font-size:.73rem; font-style:italic; }
 .sr.hi { background:rgba(232,192,96,.07); border-left:2px solid rgba(232,192,96,.6); padding-left:6px; }
-body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #script { display:none; }
+body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #script,body.rec #apanel { display:none; }
 body.rec { background:#000; }
 body.rec #stage { border-radius:0; box-shadow:none; }
+#apanel { width:540px; margin-top:8px; background:#141414; border-radius:10px; padding:10px 14px; border:1px solid #222; }
+.arow { display:flex; align-items:center; gap:7px; padding:6px 0; flex-wrap:wrap; }
+.arow+.arow { border-top:1px solid #1c1c1c; padding-top:10px; margin-top:4px; }
+.albl { color:#888; font-size:.8rem; white-space:nowrap; font-family:monospace; min-width:110px; }
+#bgm-name { color:#555; font-size:.73rem; overflow:hidden; white-space:nowrap; flex:1; }
+#bgm-vol { width:70px; cursor:pointer; accent-color:#e8c060; vertical-align:middle; }
+.bfl { background:#1a1a2e; color:#88f; border:1px solid #334; cursor:pointer; }
+.bfl:hover { background:#22224a; }
 </style>
 </head>
 <body>
@@ -162,6 +170,21 @@ body.rec #stage { border-radius:0; box-shadow:none; }
 </div>
 <div id="dots"></div>
 <div id="kbh">Space: 再生/停止 &nbsp;·&nbsp; ← →: シーン &nbsp;·&nbsp; R: リセット &nbsp;·&nbsp; P: REC &nbsp;·&nbsp; T: サムネ</div>
+<div id="apanel">
+  <div class="arow">
+    <span class="albl">🎵 BGM</span>
+    <label class="btn bfl">ファイル選択<input type="file" accept="audio/*" id="bgm-file" style="display:none"></label>
+    <button class="btn bn" id="bgm-btn" onclick="toggleBGM()" disabled>▶ 再生</button>
+    <input type="range" id="bgm-vol" min="0" max="1" step="0.05" value="0.3" title="音量">
+    <span id="bgm-name">← 音楽ファイルを選択</span>
+  </div>
+  <div class="arow">
+    <span class="albl">🎤 ナレーション</span>
+    <button class="btn bn" id="vrec-btn" onclick="toggleVoiceRec()">● 録音</button>
+    <button class="btn bn" id="vplay-btn" onclick="playVoice()" disabled>▶ 試聴</button>
+    <button class="btn bn" id="vdl-btn" onclick="dlVoice()" disabled>💾 保存</button>
+  </div>
+</div>
 <div id="script">
   <h3>🎙 ナレーション台本（60秒）</h3>
   <div class="sr" id="r0"><span class="stc">0:00</span><span class="sn">INTRO</span><div><div class="sv">「一杯のラーメンに、全てをかける男がいる。ラーメン屋店長のすごい12選、スタート！」</div><div class="sm">BGM：和太鼓系・テンポアップ (3秒)</div></div></div>
@@ -274,10 +297,17 @@ function togglePlay(){
   if(el>=TOT){reset();return;}
   play=!play;
   document.getElementById('bplay').textContent=play?'⏸ 停止':'▶ 再生';
-  if(play){lt=null;raf=requestAnimationFrame(tick);}else cancelAnimationFrame(raf);
+  if(play){
+    lt=null;raf=requestAnimationFrame(tick);
+    if(bgmAudio&&bgmAudio.paused){bgmAudio.play();document.getElementById('bgm-btn').textContent='⏸ 停止';}
+  } else {
+    cancelAnimationFrame(raf);
+    if(bgmAudio&&!bgmAudio.paused){bgmAudio.pause();document.getElementById('bgm-btn').textContent='▶ 再生';}
+  }
 }
 function reset(){
   cancelAnimationFrame(raf);play=false;cur=0;el=0;se=0;lt=null;
+  if(bgmAudio){bgmAudio.pause();bgmAudio.currentTime=0;document.getElementById('bgm-btn').textContent='▶ 再生';}
   show(0,false);ui();document.getElementById('bplay').textContent='▶ 再生';
 }
 function jump(i){
@@ -349,17 +379,77 @@ document.addEventListener('keydown',e=>{
   if(e.code==='KeyT'){e.preventDefault();thumb();}
 });
 
+// --- BGM ---
+let bgmAudio=null;
+document.getElementById('bgm-file').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  if(bgmAudio)bgmAudio.pause();
+  bgmAudio=new Audio(URL.createObjectURL(f));
+  bgmAudio.loop=true;
+  bgmAudio.volume=parseFloat(document.getElementById('bgm-vol').value);
+  document.getElementById('bgm-name').textContent=f.name;
+  document.getElementById('bgm-btn').disabled=false;
+  document.getElementById('bgm-btn').textContent='▶ 再生';
+});
+document.getElementById('bgm-vol').addEventListener('input',e=>{
+  if(bgmAudio)bgmAudio.volume=parseFloat(e.target.value);
+});
+function toggleBGM(){
+  if(!bgmAudio)return;
+  const btn=document.getElementById('bgm-btn');
+  if(bgmAudio.paused){bgmAudio.play();btn.textContent='⏸ 停止';}
+  else{bgmAudio.pause();btn.textContent='▶ 再生';}
+}
+
+// --- ナレーション録音 ---
+let mRec=null,vChunks=[],vBlob=null,vAudio=null;
+async function toggleVoiceRec(){
+  const btn=document.getElementById('vrec-btn');
+  if(!mRec||mRec.state==='inactive'){
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      vChunks=[];
+      mRec=new MediaRecorder(stream);
+      mRec.ondataavailable=e=>{if(e.data.size>0)vChunks.push(e.data);};
+      mRec.onstop=()=>{
+        vBlob=new Blob(vChunks,{type:'audio/webm'});
+        vAudio=new Audio(URL.createObjectURL(vBlob));
+        document.getElementById('vplay-btn').disabled=false;
+        document.getElementById('vdl-btn').disabled=false;
+        btn.textContent='● 録音';btn.style.color='';
+      };
+      mRec.start();
+      btn.textContent='⏹ 停止';btn.style.color='#f55';
+    }catch(err){alert('マイクの許可が必要です\n'+err.message);}
+  } else if(mRec.state==='recording'){
+    mRec.stop();mRec.stream.getTracks().forEach(t=>t.stop());mRec=null;
+  }
+}
+function playVoice(){if(vAudio){vAudio.currentTime=0;vAudio.play();}}
+function dlVoice(){
+  if(!vBlob)return;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(vBlob);
+  a.download='narration.webm';a.click();
+}
+
 function resize(){
-  const ctrlH=185,pad=10;
-  const sh=window.innerHeight-ctrlH-pad*2;
+  const stg=document.getElementById('stage');
+  const ids=['timeline','crow','dots','kbh','apanel','script'];
+  let otherH=16;
+  ids.forEach(id=>{
+    const e=document.getElementById(id);
+    if(e&&getComputedStyle(e).display!=='none')otherH+=e.offsetHeight+12;
+  });
+  const pad=10;
+  const sh=window.innerHeight-otherH-pad*2;
   const sw=window.innerWidth-pad*2;
   const scale=Math.min(sh/960,sw/540,1);
-  const stg=document.getElementById('stage');
   stg.style.transform=`scale(${scale})`;
   stg.style.transformOrigin='top center';
   stg.style.marginBottom=Math.round((scale-1)*960)+'px';
   const uw=Math.round(540*scale)+'px';
-  ['timeline','crow','dots','kbh','script'].forEach(id=>{
+  ids.forEach(id=>{
     const e=document.getElementById(id);
     if(e){e.style.width=uw;e.style.maxWidth=uw;}
   });
