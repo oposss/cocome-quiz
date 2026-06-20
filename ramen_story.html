@@ -1,104 +1,355 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ラーメン屋店長のすごい12選 — 一杯入魂ストーリー</title>
+<title>ラーメン屋店長のすごい12選</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #1a1a1a;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-    overflow: hidden;
-  }
-  #stage {
-    position: relative;
-    width: 540px;
-    height: 960px;
-    background: #fdf5e4;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 0 60px rgba(0,0,0,0.8);
-  }
-  #stage::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(0deg,   transparent, transparent 30px, rgba(180,140,80,.06) 30px, rgba(180,140,80,.06) 31px),
-      repeating-linear-gradient(90deg,  transparent, transparent 30px, rgba(180,140,80,.06) 30px, rgba(180,140,80,.06) 31px);
-    z-index: 0;
-    pointer-events: none;
-  }
-  .scene {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: scale(1.04);
-    transition: opacity .45s ease, transform .45s ease;
-    z-index: 1;
-    padding: 32px 28px;
-    text-align: center;
-  }
-  .scene.active {
-    opacity: 1;
-    transform: scale(1);
-  }
-  #scene-intro {
-    background: linear-gradient(160deg, #3d1f0a 0%, #7a3810 60%, #c06020 100%);
-    color: #fdf5e4;
-  }
-  #scene-intro .main-title {
-    font-size: 2.6rem;
-    font-weight: 900;
-    letter-spacing: .12em;
-    line-height: 1.3;
-    text-shadow: 0 2px 8px rgba(0,0,0,.6);
-  }
-  #scene-intro .sub-title {
-    font-size: 1.1rem;
-    margin-top: 16px;
-    opacity: .85;
-    letter-spacing: .1em;
-  }
-  #scene-intro .stamp {
-    margin-top: 28px;
-    width: 90px; height: 90px;
-    border: 4px solid #e8c060;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-    color: #e8c060;
-    font-weight: 900;
-    letter-spacing: .05em;
-    text-shadow: 0 0 8px rgba(232,192,96,.5);
-    animation: stampPulse 1.2s ease-in-out infinite alternate;
-  }
-  @keyframes stampPulse { from { box-shadow: 0 0 6px #e8c060; } to { box-shadow: 0 0 22px #e8c060; } }
-  .scene-card {
-    background: rgba(253,245,228,.97);
-    border-radius: 16px;
-    width: 100%;
-  }
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#111; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  min-height:100vh; font-family:'Hiragino Mincho ProN','Yu Mincho',serif; overflow:hidden;
+}
+#stage {
+  position:relative; width:540px; height:960px;
+  background:#fdf5e4; overflow:hidden; border-radius:12px;
+  box-shadow:0 0 80px rgba(0,0,0,.9);
+}
+#stage::before {
+  content:''; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(180,140,80,.06) 30px,rgba(180,140,80,.06) 31px),
+    repeating-linear-gradient(90deg,transparent,transparent 30px,rgba(180,140,80,.06) 30px,rgba(180,140,80,.06) 31px);
+  z-index:0; pointer-events:none;
+}
+#flash { position:absolute; inset:0; background:#e8c060; opacity:0; z-index:20; pointer-events:none; border-radius:12px; }
+#pcanvas { position:absolute; inset:0; z-index:5; pointer-events:none; }
+.scene {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  opacity:0; z-index:1; padding:36px 28px; text-align:center; pointer-events:none;
+}
+.scene.active { opacity:1; pointer-events:auto; }
+
+/* イントロ・エンド */
+#s0,#s13 { background:linear-gradient(160deg,#2a1005 0%,#6b2e0a 55%,#b85520 100%); color:#fdf5e4; }
+.bg-k { position:absolute; font-size:17rem; color:rgba(255,255,255,.04); font-weight:900; top:50%; left:50%; transform:translate(-50%,-50%); user-select:none; }
+.main-t { font-size:2.7rem; font-weight:900; letter-spacing:.14em; line-height:1.35; text-shadow:0 2px 12px rgba(0,0,0,.7); position:relative; z-index:2; }
+.sub-t { font-size:1.1rem; margin-top:18px; opacity:.85; letter-spacing:.12em; line-height:1.8; position:relative; z-index:2; }
+.stamp { margin-top:30px; width:96px; height:96px; border:4px solid #e8c060; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.45rem; color:#e8c060; font-weight:900; position:relative; z-index:2; animation:pulse 1.4s ease-in-out infinite alternate; }
+@keyframes pulse { from{box-shadow:0 0 8px #e8c060;} to{box-shadow:0 0 28px #e8c060,0 0 60px rgba(232,192,96,.3);} }
+
+/* カード */
+.card { background:rgba(253,245,228,.97); border-radius:20px; width:100%; padding:44px 36px 48px; box-shadow:0 6px 40px rgba(100,40,0,.2); position:relative; border:2px solid rgba(180,120,40,.22); overflow:hidden; }
+.card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#c04010,#e8c060,#c04010); opacity:.7; }
+.num { position:absolute; top:-22px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#c04010,#8a2800); color:#fff; font-size:1rem; font-weight:900; padding:5px 22px; border-radius:24px; letter-spacing:.14em; box-shadow:0 3px 12px rgba(192,64,16,.5); }
+.icon { font-size:5.5rem; line-height:1; margin-bottom:20px; display:inline-block; filter:drop-shadow(0 3px 6px rgba(0,0,0,.25)); }
+.head { font-size:1.85rem; font-weight:900; color:#3d1f0a; letter-spacing:.12em; margin-bottom:16px; }
+.body { font-size:1.05rem; color:#5a3820; line-height:1.85; letter-spacing:.06em; min-height:3.7em; }
+
+/* エンド */
+.k-lg { font-size:4.8rem; font-weight:900; color:#e8c060; text-shadow:0 0 24px rgba(232,192,96,.6); margin-bottom:14px; letter-spacing:.22em; position:relative; z-index:2; }
+.brush { width:75%; height:2px; background:linear-gradient(90deg,transparent,#e8c060,transparent); margin:18px auto; position:relative; z-index:2; }
+.e-sub { font-size:1.1rem; opacity:.88; letter-spacing:.12em; line-height:2; position:relative; z-index:2; }
+.cta { margin-top:24px; font-size:1.3rem; font-weight:900; color:#e8c060; letter-spacing:.08em; position:relative; z-index:2; animation:pulse 1.6s ease-in-out infinite alternate; }
+.sns { margin-top:14px; font-size:.95rem; opacity:.75; letter-spacing:.1em; position:relative; z-index:2; font-family:'Hiragino Kaku Gothic ProN',sans-serif; }
+
+/* アニメ */
+.ia .main-t { animation:sD .7s cubic-bezier(.22,1,.36,1) both; }
+.ia .sub-t  { animation:sD .7s .18s cubic-bezier(.22,1,.36,1) both; }
+.ia .stamp  { animation:pI .6s .36s cubic-bezier(.34,1.56,.64,1) both,pulse 1.4s .9s ease-in-out infinite alternate; }
+.ca .card   { animation:cU .45s cubic-bezier(.22,1,.36,1) both; }
+.ca .icon   { animation:iB .55s .15s cubic-bezier(.34,1.56,.64,1) both; }
+.ca .head   { animation:fL .4s .25s cubic-bezier(.22,1,.36,1) both; }
+.ca .body   { animation:fL .4s .35s cubic-bezier(.22,1,.36,1) both; }
+.ea .k-lg   { animation:pI .65s cubic-bezier(.34,1.56,.64,1) both; }
+.ea .brush  { animation:xL .6s .25s ease both; }
+.ea .e-sub  { animation:fL .5s .35s cubic-bezier(.22,1,.36,1) both; }
+.ea .cta    { animation:pI .5s .5s cubic-bezier(.34,1.56,.64,1) both,pulse 1.6s 1s ease-in-out infinite alternate; }
+.ea .sns    { animation:fL .5s .65s cubic-bezier(.22,1,.36,1) both; }
+@keyframes sD { from{opacity:0;transform:translateY(-24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pI { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
+@keyframes cU { from{opacity:0;transform:translateY(36px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+@keyframes iB { from{opacity:0;transform:scale(.3) rotate(-15deg)} to{opacity:1;transform:scale(1) rotate(0)} }
+@keyframes fL { from{opacity:0;transform:translateX(-18px)} to{opacity:1;transform:translateX(0)} }
+@keyframes xL { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+
+/* UI */
+#timeline { width:540px; margin-top:14px; display:flex; align-items:center; gap:8px; }
+#pbar { flex:1; height:6px; background:rgba(255,255,255,.15); border-radius:4px; overflow:hidden; }
+#pfill { height:100%; background:linear-gradient(90deg,#e8c060,#c04010); width:0%; border-radius:4px; transition:width .1s linear; }
+#tc { color:#777; font-size:.82rem; font-family:monospace; min-width:64px; text-align:right; }
+#crow { margin-top:10px; width:540px; display:flex; align-items:center; gap:8px; }
+#ctrls { display:flex; gap:6px; }
+.btn { padding:9px 18px; border-radius:8px; border:none; font-size:.9rem; font-weight:700; cursor:pointer; font-family:inherit; transition:background .2s,transform .1s; letter-spacing:.05em; }
+.btn:active { transform:scale(.95); }
+.bp { background:linear-gradient(135deg,#c06020,#8a3800); color:#fff; box-shadow:0 2px 10px rgba(192,96,32,.5); padding:9px 22px; }
+.bp:hover { background:linear-gradient(135deg,#a04810,#6a2400); }
+.bn { background:#1e1e1e; color:#999; border:1px solid #2e2e2e; padding:9px 13px; }
+.bn:hover { background:#2a2a2a; }
+.br { background:#222; color:#888; border:1px solid #333; }
+.br:hover { background:#2e2e2e; }
+.brc { background:#1a2a1a; color:#6c6; border:1px solid #2a3a2a; }
+.brc:hover { background:#223322; }
+.brc.on { background:#0a3a0a; color:#4f4; border-color:#4f4; }
+.bt { background:#1a1a2e; color:#88f; border:1px solid #334; }
+.bt:hover { background:#22224a; }
+#scnt { margin-left:auto; color:#555; font-size:.8rem; font-family:monospace; }
+#dots { margin-top:8px; display:flex; gap:5px; flex-wrap:wrap; justify-content:center; max-width:540px; }
+.dot { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.18); transition:background .25s,transform .25s; cursor:pointer; }
+.dot:hover { background:rgba(232,192,96,.45); }
+.dot.on { background:#e8c060; transform:scale(1.45); }
+#kbh { margin-top:7px; color:#3a3a3a; font-size:.72rem; font-family:monospace; }
+#script { width:540px; max-height:270px; overflow-y:auto; margin-top:12px; background:#141414; border-radius:10px; padding:14px 18px; font-size:.78rem; color:#bbb; font-family:'Hiragino Kaku Gothic ProN',sans-serif; line-height:1.6; border:1px solid #222; }
+#script h3 { color:#e8c060; margin-bottom:10px; font-size:.88rem; letter-spacing:.08em; border-bottom:1px solid #222; padding-bottom:7px; }
+.sr { display:grid; grid-template-columns:48px 34px 1fr; gap:8px; padding:7px 4px; border-bottom:1px solid #1c1c1c; align-items:start; border-radius:4px; }
+.sr:last-child { border-bottom:none; }
+.stc { color:#e8c060; font-weight:700; font-family:monospace; font-size:.78rem; }
+.sn { color:#c04010; font-weight:700; }
+.sv { color:#ddd; font-size:.8rem; margin-bottom:2px; }
+.sm { color:#484848; font-size:.73rem; font-style:italic; }
+.sr.hi { background:rgba(232,192,96,.07); border-left:2px solid rgba(232,192,96,.6); padding-left:6px; }
+body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #script { display:none; }
+body.rec { background:#000; }
+body.rec #stage { border-radius:0; box-shadow:none; }
 </style>
 </head>
 <body>
 <div id="stage">
-  <div id="scene-intro" class="scene active">
-    <div class="main-title">ラーメン屋店長の<br>すごい12選</div>
-    <div class="sub-title">一杯入魂ストーリー</div>
-    <div class="stamp">魂</div>
+  <div id="flash"></div>
+  <canvas id="pcanvas" width="540" height="960"></canvas>
+
+  <div class="scene active" id="s0">
+    <div class="bg-k">麺</div>
+    <div class="main-t">ラーメン屋店長の<br>すごい12選</div>
+    <div class="sub-t">一杯に魂をこめる<br>最高の一杯職人</div>
+    <div class="stamp">麺心</div>
+  </div>
+  <div class="scene" id="s1"><div class="card"><div class="num">No.01</div><div class="icon">🍜</div><div class="head">自慢のラーメン</div><div class="body">毎朝4時から炊き始めるスープ。<br>素材の旨みを余すことなく引き出した<br><strong>こだわりの一杯</strong>がここにある。</div></div></div>
+  <div class="scene" id="s2"><div class="card"><div class="num">No.02</div><div class="icon">🫕</div><div class="head">魂のスープ</div><div class="body">豚骨・鶏ガラを18時間煮込む<br>黄金色のスープ。<br>一滴一滴に<strong>店長の魂</strong>が宿る。</div></div></div>
+  <div class="scene" id="s3"><div class="card"><div class="num">No.03</div><div class="icon">🌾</div><div class="head">自家製麺</div><div class="body">小麦の配合・水分量・熟成時間<br>300回以上の試作が生み出した<br><strong>もちもちの自家製麺</strong>。</div></div></div>
+  <div class="scene" id="s4"><div class="card"><div class="num">No.04</div><div class="icon">⏰</div><div class="head">夜明け前の仕込み</div><div class="body">誰よりも早く厨房に立つ。<br>開店3時間前から始まる丁寧な仕込み。<br>そこに<strong>プロの覚悟</strong>がある。</div></div></div>
+  <div class="scene" id="s5"><div class="card"><div class="num">No.05</div><div class="icon">🏮</div><div class="head">一軒入魂の店づくり</div><div class="body">立地・内装・暖簾の色まで<br>すべてを計算し尽くした<br><strong>こだわりの一軒</strong>。</div></div></div>
+  <div class="scene" id="s6"><div class="card"><div class="num">No.06</div><div class="icon">💬</div><div class="head">常連さんとの絆</div><div class="body">「いつもの」と言ってくれる常連さん。<br>その笑顔が今日の活力になり<br><strong>明日の一杯</strong>へと繋がる。</div></div></div>
+  <div class="scene" id="s7"><div class="card"><div class="num">No.07</div><div class="icon">📓</div><div class="head">終わらない研究</div><div class="body">閉店後も止まらないアイデアノート。<br>「もっと美味しく」を追い続ける<br><strong>職人の探求心</strong>。</div></div></div>
+  <div class="scene" id="s8"><div class="card"><div class="num">No.08</div><div class="icon">🥩</div><div class="head">食材への徹底した拘り</div><div class="body">産地直送・無添加・旬の食材のみ。<br>妥協を一切しない目利きが<br><strong>本物の味</strong>を守り続ける。</div></div></div>
+  <div class="scene" id="s9"><div class="card"><div class="num">No.09</div><div class="icon">🥢</div><div class="head">職人の相棒</div><div class="body">使い込まれた鍋・箸・寸胴鍋。<br>手に馴染んだ道具たちが<br><strong>10年の技と歴史</strong>を語る。</div></div></div>
+  <div class="scene" id="s10"><div class="card"><div class="num">No.10</div><div class="icon">🪔</div><div class="head">五感で楽しむ空間</div><div class="body">灯り・BGM・香り・清潔感。<br>居心地の良い空間が<br><strong>また来たい</strong>を生む。</div></div></div>
+  <div class="scene" id="s11"><div class="card"><div class="num">No.11</div><div class="icon">🤝</div><div class="head">最強のチーム</div><div class="body">信頼し合えるスタッフがいるから<br>最高のおもてなしができる。<br><strong>チームワーク</strong>が店を支える。</div></div></div>
+  <div class="scene" id="s12"><div class="card"><div class="num">No.12</div><div class="icon">😊</div><div class="head">最高の報酬</div><div class="body">「うまい！」の一言と笑顔。<br>それが全ての苦労を消し去る<br><strong>唯一無二の報酬</strong>。</div></div></div>
+  <div class="scene" id="s13">
+    <div class="bg-k">魂</div>
+    <div class="k-lg">一杯入魂</div>
+    <div class="brush"></div>
+    <div class="e-sub">ラーメン屋 店長<br>40代・男性 / 職人歴15年<br><br>行列ができる人気店の裏側に<br>見えない努力と情熱がある</div>
+    <div class="cta">🍜 麺一筋、今日も全力</div>
+    <div class="sns">👍 いいね &nbsp;·&nbsp; 🔔 フォロー &nbsp;·&nbsp; 🔁 シェア</div>
   </div>
 </div>
+
+<div id="timeline"><div id="pbar"><div id="pfill"></div></div><div id="tc">0:00 / 1:00</div></div>
+<div id="crow">
+  <div id="ctrls">
+    <button class="btn bn" onclick="prev()">◀</button>
+    <button class="btn bp" id="bplay" onclick="togglePlay()">▶ 再生</button>
+    <button class="btn bn" onclick="next()">▶▶</button>
+    <button class="btn br" onclick="reset()">⟳</button>
+    <button class="btn brc" id="brec" onclick="toggleRec()">● REC</button>
+    <button class="btn bt" onclick="thumb()">🖼 サムネ</button>
+  </div>
+  <div id="scnt">1 / 14</div>
+</div>
+<div id="dots"></div>
+<div id="kbh">Space: 再生/停止 &nbsp;·&nbsp; ← →: シーン &nbsp;·&nbsp; R: リセット &nbsp;·&nbsp; P: REC &nbsp;·&nbsp; T: サムネ</div>
+<div id="script">
+  <h3>🎙 ナレーション台本（60秒）</h3>
+  <div class="sr" id="r0"><span class="stc">0:00</span><span class="sn">INTRO</span><div><div class="sv">「一杯のラーメンに、全てをかける男がいる。ラーメン屋店長のすごい12選、スタート！」</div><div class="sm">BGM：和太鼓系・テンポアップ (3秒)</div></div></div>
+  <div class="sr" id="r1"><span class="stc">0:03</span><span class="sn">No.01</span><div><div class="sv">「まず1つ目！自慢のラーメン。毎朝4時から炊き始めるスープ——そのこだわりの一杯が、客を虜にする。」</div><div class="sm">🍜 (5秒)</div></div></div>
+  <div class="sr" id="r2"><span class="stc">0:08</span><span class="sn">No.02</span><div><div class="sv">「2つ目！魂のスープ。豚骨・鶏ガラを18時間煮込む——その一滴一滴に、店長の魂が宿る。」</div><div class="sm">🫕 (5秒)</div></div></div>
+  <div class="sr" id="r3"><span class="stc">0:13</span><span class="sn">No.03</span><div><div class="sv">「3つ目！自家製麺。300回以上の試作が生み出した、もちもちの麺——他では絶対食べられない。」</div><div class="sm">🌾 (5秒)</div></div></div>
+  <div class="sr" id="r4"><span class="stc">0:18</span><span class="sn">No.04</span><div><div class="sv">「4つ目！夜明け前の仕込み。誰よりも早く、開店3時間前から始まる仕込み。ここにプロの覚悟がある。」</div><div class="sm">⏰ (5秒)</div></div></div>
+  <div class="sr" id="r5"><span class="stc">0:23</span><span class="sn">No.05</span><div><div class="sv">「5つ目！一軒入魂の店づくり。立地から暖簾の色まで——すべてを計算し尽くした、こだわりの一軒。」</div><div class="sm">🏮 (5秒)</div></div></div>
+  <div class="sr" id="r6"><span class="stc">0:28</span><span class="sn">No.06</span><div><div class="sv">「6つ目！常連さんとの絆。『いつもの』の一言が今日の活力になる——人を繋ぐ、あったかいラーメン屋。」</div><div class="sm">💬 (5秒)</div></div></div>
+  <div class="sr" id="r7"><span class="stc">0:33</span><span class="sn">No.07</span><div><div class="sv">「7つ目！終わらない研究。閉店後もアイデアノートに向かう——もっと美味しくを追い続ける、職人の探求心。」</div><div class="sm">📓 (5秒)</div></div></div>
+  <div class="sr" id="r8"><span class="stc">0:38</span><span class="sn">No.08</span><div><div class="sv">「8つ目！食材への徹底した拘り。産地直送・無添加・旬の素材のみ——妥協しない目利きが、本物の味を守る。」</div><div class="sm">🥩 (5秒)</div></div></div>
+  <div class="sr" id="r9"><span class="stc">0:43</span><span class="sn">No.09</span><div><div class="sv">「9つ目！職人の相棒。使い込まれた道具たちが、10年の技と歴史を語る——道具を大切にする職人は、料理も大切にする。」</div><div class="sm">🥢 (4秒)</div></div></div>
+  <div class="sr" id="r10"><span class="stc">0:47</span><span class="sn">No.10</span><div><div class="sv">「10！五感で楽しむ空間——また来たいと思わせる、居心地の良さも職人技。」</div><div class="sm">🪔 (4秒)</div></div></div>
+  <div class="sr" id="r11"><span class="stc">0:51</span><span class="sn">No.11</span><div><div class="sv">「11！最強のチーム——信頼し合えるスタッフが、最高のおもてなしを生む。」</div><div class="sm">🤝 (3秒)</div></div></div>
+  <div class="sr" id="r12"><span class="stc">0:54</span><span class="sn">No.12</span><div><div class="sv">「そして12！最高の報酬——『うまい！』の笑顔、それだけが全てを報いる。」</div><div class="sm">😊 (3秒)</div></div></div>
+  <div class="sr" id="r13"><span class="stc">0:57</span><span class="sn">END</span><div><div class="sv">「一杯入魂——ラーメン屋店長、麺一筋、今日も全力！」</div><div class="sm">エンドカード / BGMフェードアウト (3秒)</div></div></div>
+</div>
+
+<script>
+const DUR=[3,5,5,5,5,5,5,5,5,4,4,3,3,3];
+const TOT=DUR.reduce((a,b)=>a+b,0);
+const N=DUR.length;
+const AC=['ia','ca','ca','ca','ca','ca','ca','ca','ca','ca','ca','ca','ca','ea'];
+
+let cur=0,el=0,se=0,play=false,raf=null,lt=null;
+
+const scenes=[...Array(14)].map((_,i)=>document.getElementById(i===13?'s13':'s'+i));
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>jump(i);dotsEl.appendChild(d);}
+const dots=dotsEl.querySelectorAll('.dot');
+const rows=[...Array(N)].map((_,i)=>document.getElementById('r'+i));
+
+// パーティクル
+const pc=document.getElementById('pcanvas'),ctx=pc.getContext('2d');
+let parts=[],praf=null;
+function burst(idx){
+  if(praf)cancelAnimationFrame(praf);
+  parts=[];
+  const big=idx===0||idx===13,cnt=big?55:28;
+  for(let i=0;i<cnt;i++)parts.push({
+    x:Math.random()*540,y:Math.random()*960*(big?1:.3)+960*.35,
+    vx:(Math.random()-.5)*(big?1.2:.6),vy:-(Math.random()*(big?2.2:1.4)+.4),
+    r:Math.random()*(big?4:2.5)+(big?1.5:.8),a:Math.random()*.7+.3,
+    dc:Math.random()*.008+(big?.004:.008),
+    c:`hsl(${40+Math.random()*20},90%,${60+Math.random()*20}%)`,
+    sp:(Math.random()-.5)*.12,ag:Math.random()*Math.PI*2,
+    sh:big&&Math.random()<.5?'d':'c'
+  });
+  tickP();
+}
+function tickP(){
+  ctx.clearRect(0,0,540,960);
+  let alive=false;
+  for(const p of parts){
+    if(p.a<=0)continue; alive=true;
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.04;p.ag+=p.sp;p.a-=p.dc;
+    ctx.save();ctx.globalAlpha=p.a;ctx.fillStyle=p.c;
+    ctx.translate(p.x,p.y);ctx.rotate(p.ag);
+    if(p.sh==='d'){ctx.beginPath();ctx.moveTo(0,-p.r*1.4);ctx.lineTo(p.r*.8,0);ctx.lineTo(0,p.r*1.4);ctx.lineTo(-p.r*.8,0);ctx.closePath();ctx.fill();}
+    else{ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}
+    ctx.restore();
+  }
+  if(alive)praf=requestAnimationFrame(tickP);
+  else ctx.clearRect(0,0,540,960);
+}
+
+function flash(){
+  const f=document.getElementById('flash');
+  f.style.transition='none';f.style.opacity='.3';
+  requestAnimationFrame(()=>{f.style.transition='opacity .3s ease';f.style.opacity='0';});
+}
+
+function show(i,fl=true){
+  if(fl){flash();burst(i);}
+  scenes.forEach((s,j)=>{
+    const was=s.classList.contains('active');
+    if(j===i){s.classList.add('active');if(!was){s.classList.remove(AC[i]);void s.offsetWidth;s.classList.add(AC[i]);}}
+    else{s.classList.remove('active');s.classList.remove(AC[j]);}
+  });
+  dots.forEach((d,j)=>d.classList.toggle('on',j===i));
+  rows.forEach((r,j)=>{if(r)r.classList.toggle('hi',j===i);});
+  if(rows[i])rows[i].scrollIntoView({block:'nearest',behavior:'smooth'});
+  document.getElementById('scnt').textContent=(i+1)+' / '+N;
+}
+
+function fmt(s){return Math.floor(s/60)+':'+(Math.floor(s%60)<10?'0':'')+Math.floor(s%60);}
+function ui(){
+  document.getElementById('pfill').style.width=Math.min(el/TOT*100,100)+'%';
+  document.getElementById('tc').textContent=fmt(el)+' / '+fmt(TOT);
+}
+
+function tick(ts){
+  if(!play)return;
+  if(!lt)lt=ts;
+  const dt=(ts-lt)/1000;lt=ts;
+  el=Math.min(el+dt,TOT);se+=dt;
+  if(se>=DUR[cur]){
+    se-=DUR[cur];
+    if(cur<N-1){cur++;show(cur);}
+    else{
+      play=false;document.getElementById('bplay').textContent='▶ 再生';
+      if(recOn)setTimeout(()=>{recOn=false;document.body.classList.remove('rec');document.getElementById('brec').textContent='● REC';document.getElementById('brec').classList.remove('on');},1200);
+      ui();return;
+    }
+  }
+  ui();raf=requestAnimationFrame(tick);
+}
+
+function togglePlay(){
+  if(el>=TOT){reset();return;}
+  play=!play;
+  document.getElementById('bplay').textContent=play?'⏸ 停止':'▶ 再生';
+  if(play){lt=null;raf=requestAnimationFrame(tick);}else cancelAnimationFrame(raf);
+}
+function reset(){
+  cancelAnimationFrame(raf);play=false;cur=0;el=0;se=0;lt=null;
+  show(0,false);ui();document.getElementById('bplay').textContent='▶ 再生';
+}
+function jump(i){
+  cancelAnimationFrame(raf);play=false;cur=i;se=0;
+  el=DUR.slice(0,i).reduce((a,b)=>a+b,0);lt=null;
+  show(i);ui();document.getElementById('bplay').textContent='▶ 再生';
+}
+function prev(){if(cur>0)jump(cur-1);}
+function next(){if(cur<N-1)jump(cur+1);}
+
+let recOn=false;
+function toggleRec(){
+  recOn=!recOn;
+  document.body.classList.toggle('rec',recOn);
+  const b=document.getElementById('brec');
+  b.textContent=recOn?'■ 終了':'● REC';b.classList.toggle('on',recOn);
+  if(recOn){reset();setTimeout(()=>togglePlay(),400);}
+  else{cancelAnimationFrame(raf);play=false;document.getElementById('bplay').textContent='▶ 再生';}
+}
+
+// サムネイル
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();}
+function thumb(){
+  const c=document.createElement('canvas');c.width=540;c.height=960;
+  const x=c.getContext('2d');
+  const isDk=cur===0||cur===13;
+  if(isDk){const g=x.createLinearGradient(0,0,540,960);g.addColorStop(0,'#2a1005');g.addColorStop(.55,'#6b2e0a');g.addColorStop(1,'#b85520');x.fillStyle=g;}
+  else x.fillStyle='#fdf5e4';
+  x.fillRect(0,0,540,960);
+  if(!isDk){x.strokeStyle='rgba(180,140,80,0.06)';x.lineWidth=1;for(let i=0;i<540;i+=30){x.beginPath();x.moveTo(i,0);x.lineTo(i,960);x.stroke();}for(let i=0;i<960;i+=30){x.beginPath();x.moveTo(0,i);x.lineTo(540,i);x.stroke();}}
+  const s=scenes[cur];
+  if(cur===0){
+    x.fillStyle='rgba(255,255,255,.04)';x.font='bold 280px serif';x.textAlign='center';x.fillText('麺',270,680);
+    x.fillStyle='#fdf5e4';x.font='bold 58px serif';x.textAlign='center';x.fillText('ラーメン屋店長の',270,370);x.fillText('すごい12選',270,450);
+    x.font='27px serif';x.fillStyle='rgba(253,245,228,.85)';x.fillText('一杯に魂をこめる',270,520);x.fillText('最高の一杯職人',270,558);
+    x.strokeStyle='#e8c060';x.lineWidth=4;x.beginPath();x.arc(270,660,52,0,Math.PI*2);x.stroke();
+    x.fillStyle='#e8c060';x.font='bold 28px serif';x.fillText('麺心',270,670);
+  } else if(cur===13){
+    x.fillStyle='rgba(255,255,255,.04)';x.font='bold 260px serif';x.textAlign='center';x.fillText('魂',270,680);
+    x.fillStyle='#e8c060';x.font='bold 88px serif';x.textAlign='center';x.shadowColor='rgba(232,192,96,.6)';x.shadowBlur=24;x.fillText('一杯入魂',270,370);x.shadowBlur=0;
+    const lg=x.createLinearGradient(80,0,460,0);lg.addColorStop(0,'transparent');lg.addColorStop(.5,'#e8c060');lg.addColorStop(1,'transparent');x.fillStyle=lg;x.fillRect(80,415,380,2);
+    x.fillStyle='rgba(253,245,228,.88)';x.font='26px serif';['ラーメン屋 店長','40代・男性 / 職人歴15年','','行列ができる人気店の裏側に','見えない努力と情熱がある'].forEach((t,i)=>{if(t)x.fillText(t,270,470+i*44);});
+    x.fillStyle='#e8c060';x.font='bold 30px serif';x.fillText('🍜 麺一筋、今日も全力',270,710);
+  } else {
+    const nm=s.querySelector('.num'),ic=s.querySelector('.icon'),hd=s.querySelector('.head'),bd=s.querySelector('.body');
+    x.save();x.shadowColor='rgba(100,40,0,.2)';x.shadowBlur=40;x.fillStyle='rgba(253,245,228,.97)';rr(x,40,160,460,500,20);x.fill();x.restore();
+    const ag=x.createLinearGradient(40,0,500,0);ag.addColorStop(0,'#c04010');ag.addColorStop(.5,'#e8c060');ag.addColorStop(1,'#c04010');x.fillStyle=ag;x.fillRect(40,656,460,4);
+    const ng=x.createLinearGradient(0,0,0,32);ng.addColorStop(0,'#c04010');ng.addColorStop(1,'#8a2800');x.fillStyle=ng;rr(x,185,142,170,36,18);x.fill();
+    x.fillStyle='#fff';x.font='bold 18px sans-serif';x.textAlign='center';x.fillText(nm?nm.textContent:'',270,166);
+    x.font='100px serif';x.textAlign='center';x.fillText(ic?ic.textContent.trim():'',270,335);
+    x.fillStyle='#3d1f0a';x.font='bold 36px serif';x.textAlign='center';x.fillText(hd?hd.textContent:'',270,415);
+    x.fillStyle='#5a3820';x.font='22px serif';
+    const bt=(bd?bd.innerText||bd.textContent:'').split('\n').map(t=>t.trim()).filter(Boolean);
+    bt.forEach((t,i)=>x.fillText(t,270,485+i*36));
+  }
+  x.fillStyle='rgba(180,120,40,.12)';x.font='bold 15px sans-serif';x.textAlign='right';x.fillText('ラーメン屋店長のすごい12選',530,950);
+  const a=document.createElement('a');
+  a.download='ramen_'+(cur===0?'intro':cur===13?'end':'scene'+String(cur).padStart(2,'0'))+'.png';
+  a.href=c.toDataURL('image/png');a.click();
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  if(e.code==='Space'){e.preventDefault();togglePlay();}
+  if(e.code==='ArrowRight'){e.preventDefault();next();}
+  if(e.code==='ArrowLeft'){e.preventDefault();prev();}
+  if(e.code==='KeyR'){e.preventDefault();reset();}
+  if(e.code==='KeyP'){e.preventDefault();toggleRec();}
+  if(e.code==='KeyT'){e.preventDefault();thumb();}
+});
+
+show(0,false);ui();
+</script>
 </body>
 </html>
