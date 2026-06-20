@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>納品書_KS_令和８年７月９日</title>
+<style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ body { font-family: "MS Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; font-size: 12.5pt; background: #fff; color: #000; }
+ .page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 12mm 14mm 8mm 14mm; }
+ .title { text-align: center; font-size: 23pt; font-weight: bold; letter-spacing: 14px; margin-bottom: 7mm; }
+ .date { text-align: right; font-size: 12pt; margin-bottom: 2mm; }
+ .recipient { font-size: 17pt; font-weight: bold; color: #000; border-bottom: 2px solid #000; padding-bottom: 2mm; margin-bottom: 3mm; display: inline-block; }
+ .company-info { font-size: 10pt; line-height: 1.85; color: #000; }
+ .subject-line { font-size: 12pt; margin: 3mm 0 2mm 0; }
+ .invoice-total-label { font-size: 12.5pt; margin-bottom: 1mm; margin-top: 4mm; color: #000; }
+ .amount-value { font-size: 13pt; font-weight: bold; color: #000; margin-bottom: 1mm; }
+ .amount-underline { border-bottom: 1px solid #000; width: 60%; margin-bottom: 3mm; }
+ table { width: 100%; border-collapse: collapse; font-size: 10.5pt; margin-top: 3mm; }
+ table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: #1e3a5f; color: #fff; border: 1px solid #1e3a5f; padding: 4px 2px; text-align: center; font-weight: normal; }
+ table td { border: 1px solid #555; padding: 2px 4px; vertical-align: bottom; height: 19px; }
+ .td-name { text-align: left; } .td-num { text-align: right; } .td-center { text-align: center; }
+ .tr-total td { background: #fff !important; font-weight: bold; }
+ @media print { body { margin: 0; } .page { margin: 0; padding: 10mm 12mm 6mm 12mm; } }
+</style>
+</head>
+<body>
+<div class="page">
+ <div class="title">納　品　書</div>
+ <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+  <div style="width:50%;">
+   <div class="recipient">神戸刑務所長　殿</div>
+   <div class="invoice-total-label">ご請求金額合計</div>
+   <div class="amount-value">¥3,758</div>
+   <div class="amount-underline"></div>
+  </div>
+  <div style="width:50%; text-align:right;">
+   <div class="date">令和８年７月９日</div>
+   <div class="company-info" style="text-align:right;">
+    <div>株式会社　３Ｓ</div><div>代表取締役　古　詩綺</div>
+    <div>〒107-0062</div><div>東京都港区南青山6-7-8</div>
+    <div>1101ファーロ南青山</div><div>電話＆FAX：048-918-2844</div>
+    <div>登録番号：T1011801039646</div>
+   </div>
+  </div>
+ </div>
+ <div class="subject-line">金額：軽減税率8%込みの価格です。</div>
+ <table>
+  <thead><tr>
+   <th style="width:42%;">品　名</th><th style="width:13%;">数量(kg)</th>
+   <th style="width:13%;">単価</th><th style="width:16%;">金額（円）</th><th style="width:16%;">備考</th>
+  </tr></thead>
+  <tbody>
+   <tr><td class="td-name">福神漬け</td><td class="td-num">24.0</td><td class="td-num">156.60</td><td class="td-num">3,758</td><td>使用日 7/10</td></tr>
+   <tr class="tr-total"><td colspan="3" class="td-center">合　計</td><td class="td-num">3,758</td><td></td></tr>
+  </tbody>
+ </table>
+</div>
+</body>
+</html>
