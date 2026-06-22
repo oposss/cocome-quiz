@@ -58,6 +58,8 @@ body {
 .st-tx { font-size:1.55rem; font-weight:900; letter-spacing:.12em; line-height:1.6; text-shadow:0 0 20px rgba(100,180,255,.4); position:relative; z-index:2; }
 .st-line { width:60px; height:2px; background:linear-gradient(90deg,transparent,rgba(100,180,255,.6),transparent); margin:18px auto; position:relative; z-index:2; }
 .st-sb { font-size:.95rem; opacity:.75; letter-spacing:.1em; line-height:1.9; position:relative; z-index:2; }
+/* 画像がある場合はフルスクリーン表示、ない場合は青テキスト表示 */
+.st-img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#f5ead4; z-index:10; }
 
 /* サンクスシーン */
 #s25 { background:linear-gradient(160deg,#1a0d00 0%,#3a1a05 55%,#6a3010 100%); color:#fdf5e4; }
@@ -162,6 +164,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">朝4時——<br>誰より早く、火を入れる</div>
     <div class="st-line"></div>
     <div class="st-sb">静かな厨房に<br>一人の男が立つ</div>
+    <img class="st-img" src="story01.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s3: Card No.02 -->
@@ -174,6 +177,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">18時間——<br>目を離さない</div>
     <div class="st-line"></div>
     <div class="st-sb">揺れる炎、満ちる香り<br>これが命のスープだ</div>
+    <img class="st-img" src="story02.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s5: Card No.03 -->
@@ -186,6 +190,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">何度も、何度も——<br>300回目が答えを運んだ</div>
     <div class="st-line"></div>
     <div class="st-sb">打っては確かめ<br>また打ち続ける</div>
+    <img class="st-img" src="story03.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s7: Card No.04 -->
@@ -198,6 +203,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">街が眠る頃——<br>仕込みは始まる</div>
     <div class="st-line"></div>
     <div class="st-sb">暗い厨房に灯る<br>プロの覚悟</div>
+    <img class="st-img" src="story04.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s9: Card No.05 -->
@@ -210,6 +216,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">この一軒に——<br>全人生を賭けた</div>
     <div class="st-line"></div>
     <div class="st-sb">暖簾の色、灯りの角度<br>すべてに意味がある</div>
+    <img class="st-img" src="story05.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s11: Card No.06 -->
@@ -222,6 +229,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">「いらっしゃい」——<br>今日も顔を覚えている</div>
     <div class="st-line"></div>
     <div class="st-sb">常連さんの笑顔が<br>今日の活力になる</div>
+    <img class="st-img" src="story06.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s13: Card No.07 -->
@@ -234,6 +242,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">深夜のひとり時間——<br>アイデアは止まらない</div>
     <div class="st-line"></div>
     <div class="st-sb">閉店後もページを埋める<br>職人の探求心</div>
+    <img class="st-img" src="story07.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s15: Card No.08 -->
@@ -246,6 +255,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">産地の朝——<br>最高の一つを選び抜く</div>
     <div class="st-line"></div>
     <div class="st-sb">妥協しない目利きが<br>本物の味を守る</div>
+    <img class="st-img" src="story08.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s17: Card No.09 -->
@@ -258,6 +268,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">使うたびに——<br>道具に歴史が宿る</div>
     <div class="st-line"></div>
     <div class="st-sb">10年の記憶が刻まれた<br>職人の相棒たち</div>
+    <img class="st-img" src="story09.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s19: Card No.10 -->
@@ -270,6 +281,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">開店前のひとり掃除——<br>完璧な空間を作り上げる</div>
     <div class="st-line"></div>
     <div class="st-sb">五感で迎える<br>それがプロのおもてなし</div>
+    <img class="st-img" src="story10.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s21: Card No.11 -->
@@ -282,6 +294,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">「今日もよろしく！」——<br>仲間がいるから最高が生まれる</div>
     <div class="st-line"></div>
     <div class="st-sb">信頼が生む<br>最高のチームワーク</div>
+    <img class="st-img" src="story11.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s23: Card No.12 -->
@@ -294,6 +307,7 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <div class="st-tx">「また来るね」——<br>その言葉が、全てだ</div>
     <div class="st-line"></div>
     <div class="st-sb">うまい！の笑顔が<br>全ての苦労を報いる</div>
+    <img class="st-img" src="story12.jpg" onerror="this.style.display='none'" alt="">
   </div>
 
   <!-- s25: ありがとう -->
