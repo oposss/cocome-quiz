@@ -102,16 +102,7 @@ body {
 .dot:hover { background:rgba(232,192,96,.45); }
 .dot.on { background:#e8c060; transform:scale(1.45); }
 #kbh { margin-top:7px; color:#3a3a3a; font-size:.72rem; font-family:monospace; }
-#script { width:540px; max-height:270px; overflow-y:auto; margin-top:12px; background:#141414; border-radius:10px; padding:14px 18px; font-size:.78rem; color:#bbb; font-family:'Hiragino Kaku Gothic ProN',sans-serif; line-height:1.6; border:1px solid #222; }
-#script h3 { color:#e8c060; margin-bottom:10px; font-size:.88rem; letter-spacing:.08em; border-bottom:1px solid #222; padding-bottom:7px; }
-.sr { display:grid; grid-template-columns:48px 34px 1fr; gap:8px; padding:7px 4px; border-bottom:1px solid #1c1c1c; align-items:start; border-radius:4px; }
-.sr:last-child { border-bottom:none; }
-.stc { color:#e8c060; font-weight:700; font-family:monospace; font-size:.78rem; }
-.sn { color:#c04010; font-weight:700; }
-.sv { color:#ddd; font-size:.8rem; margin-bottom:2px; }
-.sm { color:#484848; font-size:.73rem; font-style:italic; }
-.sr.hi { background:rgba(232,192,96,.07); border-left:2px solid rgba(232,192,96,.6); padding-left:6px; }
-body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #script,body.rec #apanel { display:none; }
+body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #apanel { display:none; }
 body.rec { background:#000; }
 body.rec #stage { border-radius:0; box-shadow:none; }
 #apanel { width:540px; margin-top:8px; background:#141414; border-radius:10px; padding:10px 14px; border:1px solid #222; }
@@ -179,29 +170,6 @@ body.rec #stage { border-radius:0; box-shadow:none; }
     <input type="range" id="bgm-vol" min="0" max="1" step="0.05" value="0.3" title="音量">
     <span id="bgm-name">← 音楽ファイルを選択</span>
   </div>
-  <div class="arow">
-    <span class="albl">🎤 ナレーション</span>
-    <button class="btn bn" id="vrec-btn" onclick="toggleVoiceRec()">● 録音</button>
-    <button class="btn bn" id="vplay-btn" onclick="playVoice()" disabled>▶ 試聴</button>
-    <button class="btn bn" id="vdl-btn" onclick="dlVoice()" disabled>💾 保存</button>
-  </div>
-</div>
-<div id="script">
-  <h3>🎙 ナレーション台本（60秒）</h3>
-  <div class="sr" id="r0"><span class="stc">0:00</span><span class="sn">INTRO</span><div><div class="sv">「一杯のラーメンに、全てをかける男がいる。ラーメン屋店長のすごい12選、スタート！」</div><div class="sm">BGM：和太鼓系・テンポアップ (3秒)</div></div></div>
-  <div class="sr" id="r1"><span class="stc">0:03</span><span class="sn">No.01</span><div><div class="sv">「まず1つ目！自慢のラーメン。毎朝4時から炊き始めるスープ——そのこだわりの一杯が、客を虜にする。」</div><div class="sm">🍜 (5秒)</div></div></div>
-  <div class="sr" id="r2"><span class="stc">0:08</span><span class="sn">No.02</span><div><div class="sv">「2つ目！魂のスープ。豚骨・鶏ガラを18時間煮込む——その一滴一滴に、店長の魂が宿る。」</div><div class="sm">🫕 (5秒)</div></div></div>
-  <div class="sr" id="r3"><span class="stc">0:13</span><span class="sn">No.03</span><div><div class="sv">「3つ目！自家製麺。300回以上の試作が生み出した、もちもちの麺——他では絶対食べられない。」</div><div class="sm">🌾 (5秒)</div></div></div>
-  <div class="sr" id="r4"><span class="stc">0:18</span><span class="sn">No.04</span><div><div class="sv">「4つ目！夜明け前の仕込み。誰よりも早く、開店3時間前から始まる仕込み。ここにプロの覚悟がある。」</div><div class="sm">⏰ (5秒)</div></div></div>
-  <div class="sr" id="r5"><span class="stc">0:23</span><span class="sn">No.05</span><div><div class="sv">「5つ目！一軒入魂の店づくり。立地から暖簾の色まで——すべてを計算し尽くした、こだわりの一軒。」</div><div class="sm">🏮 (5秒)</div></div></div>
-  <div class="sr" id="r6"><span class="stc">0:28</span><span class="sn">No.06</span><div><div class="sv">「6つ目！常連さんとの絆。『いつもの』の一言が今日の活力になる——人を繋ぐ、あったかいラーメン屋。」</div><div class="sm">💬 (5秒)</div></div></div>
-  <div class="sr" id="r7"><span class="stc">0:33</span><span class="sn">No.07</span><div><div class="sv">「7つ目！終わらない研究。閉店後もアイデアノートに向かう——もっと美味しくを追い続ける、職人の探求心。」</div><div class="sm">📓 (5秒)</div></div></div>
-  <div class="sr" id="r8"><span class="stc">0:38</span><span class="sn">No.08</span><div><div class="sv">「8つ目！食材への徹底した拘り。産地直送・無添加・旬の素材のみ——妥協しない目利きが、本物の味を守る。」</div><div class="sm">🥩 (5秒)</div></div></div>
-  <div class="sr" id="r9"><span class="stc">0:43</span><span class="sn">No.09</span><div><div class="sv">「9つ目！職人の相棒。使い込まれた道具たちが、10年の技と歴史を語る——道具を大切にする職人は、料理も大切にする。」</div><div class="sm">🥢 (4秒)</div></div></div>
-  <div class="sr" id="r10"><span class="stc">0:47</span><span class="sn">No.10</span><div><div class="sv">「10！五感で楽しむ空間——また来たいと思わせる、居心地の良さも職人技。」</div><div class="sm">🪔 (4秒)</div></div></div>
-  <div class="sr" id="r11"><span class="stc">0:51</span><span class="sn">No.11</span><div><div class="sv">「11！最強のチーム——信頼し合えるスタッフが、最高のおもてなしを生む。」</div><div class="sm">🤝 (3秒)</div></div></div>
-  <div class="sr" id="r12"><span class="stc">0:54</span><span class="sn">No.12</span><div><div class="sv">「そして12！最高の報酬——『うまい！』の笑顔、それだけが全てを報いる。」</div><div class="sm">😊 (3秒)</div></div></div>
-  <div class="sr" id="r13"><span class="stc">0:57</span><span class="sn">END</span><div><div class="sv">「一杯入魂——ラーメン屋店長、麺一筋、今日も全力！」</div><div class="sm">エンドカード / BGMフェードアウト (3秒)</div></div></div>
 </div>
 
 <script>
@@ -216,8 +184,6 @@ const scenes=[...Array(14)].map((_,i)=>document.getElementById(i===13?'s13':'s'+
 const dotsEl=document.getElementById('dots');
 for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>jump(i);dotsEl.appendChild(d);}
 const dots=dotsEl.querySelectorAll('.dot');
-const rows=[...Array(N)].map((_,i)=>document.getElementById('r'+i));
-
 // パーティクル
 const pc=document.getElementById('pcanvas'),ctx=pc.getContext('2d');
 let parts=[],praf=null;
@@ -266,8 +232,6 @@ function show(i,fl=true){
     else{s.classList.remove('active');s.classList.remove(AC[j]);}
   });
   dots.forEach((d,j)=>d.classList.toggle('on',j===i));
-  rows.forEach((r,j)=>{if(r)r.classList.toggle('hi',j===i);});
-  if(rows[i])rows[i].scrollIntoView({block:'nearest',behavior:'smooth'});
   document.getElementById('scnt').textContent=(i+1)+' / '+N;
 }
 
@@ -402,38 +366,6 @@ function toggleBGM(){
   else{bgmAudio.pause();btn.textContent='▶ 再生';}
 }
 
-// --- ナレーション録音 ---
-let mRec=null,vChunks=[],vBlob=null,vAudio=null;
-async function toggleVoiceRec(){
-  const btn=document.getElementById('vrec-btn');
-  if(!mRec||mRec.state==='inactive'){
-    try{
-      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-      vChunks=[];
-      mRec=new MediaRecorder(stream);
-      mRec.ondataavailable=e=>{if(e.data.size>0)vChunks.push(e.data);};
-      mRec.onstop=()=>{
-        vBlob=new Blob(vChunks,{type:'audio/webm'});
-        vAudio=new Audio(URL.createObjectURL(vBlob));
-        document.getElementById('vplay-btn').disabled=false;
-        document.getElementById('vdl-btn').disabled=false;
-        btn.textContent='● 録音';btn.style.color='';
-      };
-      mRec.start();
-      btn.textContent='⏹ 停止';btn.style.color='#f55';
-    }catch(err){alert('マイクの許可が必要です\n'+err.message);}
-  } else if(mRec.state==='recording'){
-    mRec.stop();mRec.stream.getTracks().forEach(t=>t.stop());mRec=null;
-  }
-}
-function playVoice(){if(vAudio){vAudio.currentTime=0;vAudio.play();}}
-function dlVoice(){
-  if(!vBlob)return;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(vBlob);
-  a.download='narration.webm';a.click();
-}
-
 function resize(){
   const stg=document.getElementById('stage');
   const sw=window.innerWidth-16;
@@ -442,7 +374,7 @@ function resize(){
   stg.style.transformOrigin='top center';
   stg.style.marginBottom=Math.round((scale-1)*960)+'px';
   const uw=Math.round(540*scale)+'px';
-  ['timeline','crow','dots','kbh','apanel','script'].forEach(id=>{
+  ['timeline','crow','dots','kbh','apanel'].forEach(id=>{
     const e=document.getElementById(id);
     if(e){e.style.width=uw;e.style.maxWidth=uw;}
   });
