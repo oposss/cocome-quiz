@@ -6,7 +6,9 @@
       "mcp__1b4ac607-1a4b-4a1b-af84-7801e739f278__list_recent_files",
       "mcp__1b4ac607-1a4b-4a1b-af84-7801e739f278__get_file_metadata",
       "mcp__1b4ac607-1a4b-4a1b-af84-7801e739f278__read_file_content",
-      "Bash(curl -s *)"
+      "Bash(curl -s *)",
+      "mcp__1b4ac607-1a4b-4a1b-af84-7801e739f278__create_file",
+      "mcp__1b4ac607-1a4b-4a1b-af84-7801e739f278__download_file_content"
     ]
   }
 }
