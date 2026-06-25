@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request
+import os
+from flask import Flask, render_template, request, send_from_directory
 
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
 @app.route("/")
@@ -22,6 +24,10 @@ def result():
         result_type = "cocome_uranai"
 
     return render_template("result.html", result_type=result_type)
+
+@app.route("/ramen")
+def ramen():
+    return send_from_directory(_ROOT, "ramen_story.html")
 
 # Vercel entry point
 handler = app
