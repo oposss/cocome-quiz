@@ -121,6 +121,18 @@ html,body{width:100%;background:#2a1a1a;display:flex;flex-direction:column;align
 .dot.act{background:#e8a0b4;transform:scale(1.3);}
 
 body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #apanel{display:none;}
+
+/* ===== キャラクター ===== */
+#char-wrap{position:absolute;z-index:20;pointer-events:none;transition:bottom .5s,right .5s,left .5s,width .5s,opacity .4s;}
+.char-face{overflow:visible;filter:drop-shadow(0 4px 16px rgba(0,0,0,.25));}
+.expr{display:none;}
+.expr.on{display:block;}
+@keyframes charBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes charShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+@keyframes charNod{0%,100%{transform:rotate(0deg);}40%{transform:rotate(-5deg);}70%{transform:rotate(3deg);}}
+.anim-bounce{animation:charBounce 1.8s ease-in-out infinite;}
+.anim-shake{animation:charShake 0.4s ease-in-out 3;}
+.anim-nod{animation:charNod 2s ease-in-out infinite;}
 </style>
 </head>
 <body>
@@ -372,6 +384,139 @@ body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #apanel{
   <div class="scene" id="s26">
     <div class="en-tx">主婦の<br>12個の悩み<br><br>毎日おつかれさま</div>
   </div>
+
+  <!-- ===== SVGキャラクター ===== -->
+  <div id="char-wrap">
+    <svg id="char-svg" class="char-face" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+      <!-- 服・エプロン -->
+      <path d="M28,192 Q80,200 132,192 L138,210 Q80,215 22,210 Z" fill="#c86010"/>
+      <path d="M20,194 Q28,192 32,210 L22,210 Z" fill="#f0f0ec"/>
+      <path d="M140,194 Q132,192 128,210 L138,210 Z" fill="#f0f0ec"/>
+      <!-- エプロンストラップ -->
+      <rect x="58" y="186" width="14" height="26" rx="4" fill="#a85010"/>
+      <rect x="88" y="186" width="14" height="26" rx="4" fill="#a85010"/>
+
+      <!-- 首 -->
+      <rect x="68" y="172" width="24" height="22" rx="6" fill="#fde0b8"/>
+
+      <!-- 髪（後ろ・ベース） -->
+      <ellipse cx="80" cy="84" rx="72" ry="66" fill="#f0b020"/>
+      <!-- 髪の毛（上部ウェーブ） -->
+      <path d="M18,72 Q32,42 58,55 Q48,30 78,28 Q108,26 122,48 Q142,32 150,62 Q160,42 152,70"
+            fill="#f0b020" stroke="none"/>
+      <!-- 髪の毛（サイドウェーブ） -->
+      <path d="M14,88 Q6,115 12,142 Q6,136 4,150" stroke="#f0b020" stroke-width="20" stroke-linecap="round" fill="none"/>
+      <path d="M146,86 Q154,112 150,140 Q156,134 158,148" stroke="#f0b020" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <!-- 前髪ストランド -->
+      <path d="M46,72 Q38,92 42,108" stroke="#d8980e" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M60,58 Q52,80 55,96" stroke="#e4a818" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M108,60 Q116,80 114,96" stroke="#d8980e" stroke-width="7" stroke-linecap="round" fill="none"/>
+
+      <!-- 顔 -->
+      <ellipse cx="80" cy="118" rx="60" ry="66" fill="#fde0b8"/>
+
+      <!-- 耳 -->
+      <ellipse cx="21" cy="116" rx="9" ry="12" fill="#fdd0a0"/>
+      <ellipse cx="139" cy="116" rx="9" ry="12" fill="#fdd0a0"/>
+
+      <!-- 目（白目） -->
+      <ellipse cx="58" cy="108" rx="17" ry="19" fill="white"/>
+      <ellipse cx="102" cy="108" rx="17" ry="19" fill="white"/>
+      <!-- 虹彩（ティール） -->
+      <circle cx="58" cy="110" r="12" fill="#52a8a8"/>
+      <circle cx="102" cy="110" r="12" fill="#52a8a8"/>
+      <!-- 瞳孔 -->
+      <circle cx="59" cy="111" r="7.5" fill="#0a0a1a"/>
+      <circle cx="103" cy="111" r="7.5" fill="#0a0a1a"/>
+      <!-- 目の輝き -->
+      <circle cx="63" cy="105" r="3.5" fill="white"/>
+      <circle cx="107" cy="105" r="3.5" fill="white"/>
+      <circle cx="55" cy="114" r="2" fill="white" opacity="0.7"/>
+      <circle cx="99" cy="114" r="2" fill="white" opacity="0.7"/>
+      <!-- まつ毛 -->
+      <path d="M41,97 Q58,88 75,97" fill="none" stroke="#1a0a10" stroke-width="3" stroke-linecap="round"/>
+      <path d="M85,97 Q102,88 119,97" fill="none" stroke="#1a0a10" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- メガネ -->
+      <circle cx="58" cy="108" r="22" fill="none" stroke="#2a1008" stroke-width="3.5"/>
+      <circle cx="102" cy="108" r="22" fill="none" stroke="#2a1008" stroke-width="3.5"/>
+      <path d="M80,108 L80,108" stroke="#2a1008" stroke-width="3"/>
+      <line x1="80" y1="108" x2="80" y2="108" stroke="#2a1008" stroke-width="3"/>
+      <!-- ブリッジ -->
+      <path d="M80,108 Q80,105 80,108" stroke="#2a1008" stroke-width="3"/>
+      <line x1="79" y1="107" x2="81" y2="107" stroke="#2a1008" stroke-width="3.5"/>
+      <!-- アーム -->
+      <line x1="36" y1="103" x2="20" y2="101" stroke="#2a1008" stroke-width="3" stroke-linecap="round"/>
+      <line x1="124" y1="103" x2="140" y2="101" stroke="#2a1008" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- ほっぺの赤み -->
+      <ellipse cx="32" cy="130" rx="15" ry="10" fill="#ff9080" opacity="0.38"/>
+      <ellipse cx="128" cy="130" rx="15" ry="10" fill="#ff9080" opacity="0.38"/>
+
+      <!-- 鼻 -->
+      <path d="M74,136 Q80,143 86,136" fill="none" stroke="#d0a070" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- ===== 表情グループ（喜怒哀楽） ===== -->
+
+      <!-- 喜 joy -->
+      <g class="expr on" id="e-joy">
+        <!-- 眉 -->
+        <path d="M40,89 Q58,81 76,87" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M84,87 Q102,80 120,88" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 口：大きな笑顔 -->
+        <path d="M55,155 Q80,175 105,155" fill="none" stroke="#c05840" stroke-width="4" stroke-linecap="round"/>
+        <path d="M55,155 Q80,178 105,155 Q80,162 55,155 Z" fill="#f08060" opacity="0.25"/>
+      </g>
+
+      <!-- 怒 anger -->
+      <g class="expr" id="e-anger">
+        <!-- 眉（逆ハの字） -->
+        <path d="M40,91 Q58,84 76,90" fill="none" stroke="#7a3010" stroke-width="4" stroke-linecap="round"/>
+        <path d="M84,90 Q102,84 120,90" fill="none" stroke="#7a3010" stroke-width="4" stroke-linecap="round"/>
+        <!-- しわ寄せ -->
+        <path d="M70,87 L76,91" stroke="#7a3010" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M90,91 L84,87" stroke="#7a3010" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 口：一文字 -->
+        <path d="M62,160 Q80,155 98,160" fill="none" stroke="#a04030" stroke-width="3.5" stroke-linecap="round"/>
+      </g>
+
+      <!-- 哀 sad -->
+      <g class="expr" id="e-sad">
+        <!-- 眉（困り眉：内側が上がる） -->
+        <path d="M40,91 Q52,84 76,90" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M84,90 Q108,84 120,91" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 目：半目 -->
+        <path d="M42,104 Q58,110 74,104" fill="#fde0b8" stroke="none"/>
+        <path d="M86,104 Q102,110 118,104" fill="#fde0b8" stroke="none"/>
+        <!-- 口：への字 -->
+        <path d="M60,163 Q80,155 100,163" fill="none" stroke="#9080a0" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 涙 -->
+        <ellipse cx="46" cy="128" rx="4" ry="6" fill="#90c8e0" opacity="0.7"/>
+        <path d="M46,134 Q44,140 46,143" stroke="#90c8e0" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+      </g>
+
+      <!-- 楽 fun -->
+      <g class="expr" id="e-fun">
+        <!-- 眉（高く上がる） -->
+        <path d="M40,86 Q58,76 76,84" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M84,84 Q102,76 120,86" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 目：キラキラ大きく -->
+        <circle cx="58" cy="110" r="14" fill="#62bcbc"/>
+        <circle cx="102" cy="110" r="14" fill="#62bcbc"/>
+        <circle cx="59" cy="111" r="8.5" fill="#0a0a1a"/>
+        <circle cx="103" cy="111" r="8.5" fill="#0a0a1a"/>
+        <circle cx="63" cy="104" r="4.5" fill="white"/>
+        <circle cx="107" cy="104" r="4.5" fill="white"/>
+        <!-- 口：大きく開いた笑顔 -->
+        <path d="M52,153 Q80,178 108,153" fill="none" stroke="#c05840" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="80" cy="164" rx="24" ry="12" fill="#e06050" opacity="0.5"/>
+        <!-- キラキラ -->
+        <text x="18" y="72" font-size="16" fill="#f0d040" opacity="0.9">✦</text>
+        <text x="126" y="68" font-size="12" fill="#f0d040" opacity="0.8">✦</text>
+        <text x="130" y="90" font-size="8" fill="#f0d040" opacity="0.7">✦</text>
+      </g>
+    </svg>
+  </div>
 </div>
 
 <!-- タイムライン -->
@@ -436,6 +581,7 @@ function show(idx, animate=true){
   s.style.pointerEvents='auto';
   if(animate){ s.classList.add(AC[idx]); }
   dot();
+  updateChar(idx);
   if(idx===0||idx===N-1||idx===N-2) burst(idx);
 }
 
@@ -607,9 +753,61 @@ document.addEventListener('keydown',e=>{
   if(e.code==='KeyP'){e.preventDefault();toggleRec();}
 });
 
+// ===== キャラクター表情・位置 =====
+// 喜=joy 怒=anger 哀=sad 楽=fun
+const SCENE_CHAR = [
+  {e:'fun',  b:'10px', l:'calc(50% - 55px)', w:'110px', a:'anim-bounce'}, // s0 イントロ
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s1 家計card
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s2 家計story
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s3 献立card
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s4 献立story
+  {e:'anger',b:'8px',  r:'12px', w:'80px',  a:'anim-shake'}, // s5 片付けcard
+  {e:'anger',b:'8px',  r:'12px', w:'85px',  a:'anim-shake'}, // s6 片付けstory
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s7 洗濯card
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s8 洗濯story
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s9 時間card
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s10 時間story
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s11 子どもcard
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s12 子どもstory
+  {e:'anger',b:'8px',  r:'12px', w:'80px',  a:'anim-shake'}, // s13 夫card
+  {e:'anger',b:'8px',  r:'12px', w:'85px',  a:'anim-shake'}, // s14 夫story
+  {e:'anger',b:'8px',  r:'12px', w:'80px',  a:'anim-shake'}, // s15 物価card
+  {e:'anger',b:'8px',  r:'12px', w:'85px',  a:'anim-shake'}, // s16 物価story
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s17 疲れcard
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s18 疲れstory
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s19 人間関係card
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s20 人間関係story
+  {e:'sad',  b:'8px',  r:'12px', w:'80px',  a:'anim-nod'},   // s21 将来card
+  {e:'sad',  b:'8px',  r:'12px', w:'85px',  a:'anim-nod'},   // s22 将来story
+  {e:'fun',  b:'8px',  r:'12px', w:'80px',  a:'anim-bounce'},// s23 美容card
+  {e:'fun',  b:'8px',  r:'12px', w:'85px',  a:'anim-bounce'},// s24 美容story
+  {e:'joy',  b:'16px', l:'calc(50% - 70px)', w:'140px', a:'anim-bounce'}, // s25 ありがとう
+  {e:'joy',  b:'12px', l:'calc(50% - 55px)', w:'110px', a:'anim-bounce'}, // s26 エンド
+];
+
+function updateChar(idx){
+  const cfg = SCENE_CHAR[idx] || SCENE_CHAR[0];
+  const wrap = document.getElementById('char-wrap');
+  // 位置・サイズ
+  wrap.style.bottom = cfg.b || '8px';
+  wrap.style.right  = cfg.r || '';
+  wrap.style.left   = cfg.l || '';
+  wrap.style.width  = cfg.w || '80px';
+  // 表情切替
+  ['joy','anger','sad','fun'].forEach(e=>{
+    const el = document.getElementById('e-'+e);
+    el.classList.toggle('on', e===cfg.e);
+  });
+  // アニメーション
+  const svg = document.getElementById('char-svg');
+  svg.classList.remove('anim-bounce','anim-shake','anim-nod');
+  if(cfg.a) svg.classList.add(cfg.a);
+}
+
 // ===== 初期化 =====
 buildDots();
 show(0,false);
+updateChar(0);
 ui();
 </script>
 </body>
