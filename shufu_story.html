@@ -18,9 +18,15 @@ html,body{width:100%;background:#2a1a1a;display:flex;flex-direction:column;align
 
 /* ===== イントロ ===== */
 #s0{background:linear-gradient(160deg,#3d1520 0%,#5a2030 55%,#7a3040 100%);}
-.in-main{font-size:3rem;font-weight:900;letter-spacing:.1em;line-height:1.3;
-  text-align:center;color:#f5e0e8;text-shadow:0 2px 20px rgba(200,100,130,.5);position:relative;z-index:2;}
-.in-sub{font-size:1rem;margin-top:16px;opacity:.8;letter-spacing:.12em;line-height:1.9;
+#s0-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  background:#f5ede4;z-index:1;}
+#s0-thumb[data-hidden]{display:none;}
+#s0-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;
+  background:linear-gradient(to top,rgba(60,15,25,.85) 0%,rgba(60,15,25,.4) 60%,transparent 100%);
+  padding:24px 28px 32px;text-align:center;}
+.in-main{font-size:2.6rem;font-weight:900;letter-spacing:.1em;line-height:1.3;
+  text-align:center;color:#f5e0e8;text-shadow:0 2px 20px rgba(200,100,130,.6);position:relative;z-index:2;}
+.in-sub{font-size:.95rem;margin-top:10px;opacity:.9;letter-spacing:.12em;line-height:1.9;
   text-align:center;color:#e8d0d8;position:relative;z-index:2;}
 .in-num{font-size:5rem;font-weight:900;color:#e8a0b4;opacity:.15;position:absolute;
   bottom:60px;right:36px;letter-spacing:-.05em;}
@@ -140,8 +146,12 @@ body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #apanel{
 <div id="stage">
   <!-- s0 イントロ -->
   <div class="scene" id="s0">
-    <div class="in-main">主婦の<br>12個の悩み</div>
-    <div class="in-sub">主婦、毎日リアルな本音</div>
+    <img id="s0-thumb" src="/static/shufu_thumb.jpg"
+         onerror="this.setAttribute('data-hidden','1')" alt="">
+    <div id="s0-overlay">
+      <div class="in-main">主婦の<br>12個の悩み</div>
+      <div class="in-sub">主婦、毎日リアルな本音</div>
+    </div>
     <div class="in-num">12</div>
   </div>
 
