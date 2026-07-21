@@ -480,19 +480,47 @@ body.rec #timeline,body.rec #crow,body.rec #dots,body.rec #kbh,body.rec #apanel{
         <path d="M62,160 Q80,155 98,160" fill="none" stroke="#a04030" stroke-width="3.5" stroke-linecap="round"/>
       </g>
 
-      <!-- 哀 sad -->
-      <g class="expr" id="e-sad">
-        <!-- 眉（困り眉：内側が上がる） -->
-        <path d="M40,91 Q52,84 76,90" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
-        <path d="M84,90 Q108,84 120,91" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
-        <!-- 目：半目 -->
-        <path d="M42,104 Q58,110 74,104" fill="#fde0b8" stroke="none"/>
-        <path d="M86,104 Q102,110 118,104" fill="#fde0b8" stroke="none"/>
-        <!-- 口：への字 -->
-        <path d="M60,163 Q80,155 100,163" fill="none" stroke="#9080a0" stroke-width="3.5" stroke-linecap="round"/>
-        <!-- 涙 -->
-        <ellipse cx="46" cy="128" rx="4" ry="6" fill="#90c8e0" opacity="0.7"/>
-        <path d="M46,134 Q44,140 46,143" stroke="#90c8e0" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <!-- 悩む nayamu（眉を寄せて考え中） -->
+      <g class="expr" id="e-nayamu">
+        <!-- 眉：片方が上がる・中央に寄せる -->
+        <path d="M40,90 Q55,82 74,88" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M86,87 Q104,82 120,90" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 眉間のしわ -->
+        <path d="M72,87 L76,91" stroke="#b08840" stroke-width="2" stroke-linecap="round"/>
+        <path d="M88,91 L84,87" stroke="#b08840" stroke-width="2" stroke-linecap="round"/>
+        <!-- 目：少し上目遣い -->
+        <circle cx="58" cy="109" r="12" fill="#4898a0"/>
+        <circle cx="102" cy="109" r="12" fill="#4898a0"/>
+        <circle cx="59" cy="110" r="7" fill="#0a0a1a"/>
+        <circle cx="103" cy="110" r="7" fill="#0a0a1a"/>
+        <circle cx="63" cy="105" r="3" fill="white"/>
+        <circle cx="107" cy="105" r="3" fill="white"/>
+        <!-- 口：へーっという感じ、横一文字ぎみ -->
+        <path d="M64,160 Q80,165 96,160" fill="none" stroke="#b06840" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 「…」吹き出しヒント -->
+        <circle cx="120" cy="82" r="3" fill="#c8a060" opacity="0.7"/>
+        <circle cx="130" cy="74" r="3.5" fill="#c8a060" opacity="0.7"/>
+        <circle cx="141" cy="64" r="4.5" fill="#c8a060" opacity="0.7"/>
+      </g>
+
+      <!-- がっかり gakkari（力が抜けた落胆顔） -->
+      <g class="expr" id="e-gakkari">
+        <!-- 眉：垂れ下がった平眉 -->
+        <path d="M40,92 Q58,88 76,92" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M84,92 Q102,88 120,92" fill="none" stroke="#a07030" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 目：半分閉じた疲れ目 -->
+        <path d="M42,104 Q58,108 74,104" fill="#fde0b8" stroke="none"/>
+        <path d="M86,104 Q102,108 118,104" fill="#fde0b8" stroke="none"/>
+        <ellipse cx="58" cy="111" rx="15" ry="10" fill="#4898a0"/>
+        <ellipse cx="102" cy="111" rx="15" ry="10" fill="#4898a0"/>
+        <circle cx="59" cy="112" r="6.5" fill="#0a0a1a"/>
+        <circle cx="103" cy="112" r="6.5" fill="#0a0a1a"/>
+        <circle cx="62" cy="108" r="2.5" fill="white"/>
+        <circle cx="106" cy="108" r="2.5" fill="white"/>
+        <!-- 口：小さいへの字・力なし -->
+        <path d="M66,162 Q80,157 94,162" fill="none" stroke="#907880" stroke-width="3" stroke-linecap="round"/>
+        <!-- ため息点線 -->
+        <path d="M80,175 Q88,182 96,176" fill="none" stroke="#b0a0c0" stroke-width="1.5" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.7"/>
       </g>
 
       <!-- 楽 fun -->
@@ -757,28 +785,28 @@ document.addEventListener('keydown',e=>{
 // 喜=joy 怒=anger 哀=sad 楽=fun
 const SCENE_CHAR = [
   {e:'fun',  b:'120px',l:'calc(50% - 60px)', w:'120px', a:'anim-bounce'}, // s0 イントロ
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s1 家計card
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s2 家計story
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s3 献立card
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s4 献立story
+  {e:'nayamu',b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s1 家計card
+  {e:'nayamu',b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s2 家計story
+  {e:'nayamu',b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s3 献立card
+  {e:'nayamu',b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s4 献立story
   {e:'anger',b:'60px', r:'14px', w:'90px',  a:'anim-shake'}, // s5 片付けcard
   {e:'anger',b:'60px', r:'14px', w:'95px',  a:'anim-shake'}, // s6 片付けstory
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s7 洗濯card
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s8 洗濯story
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s9 時間card
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s10 時間story
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s11 子どもcard
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s12 子どもstory
+  {e:'gakkari',b:'60px',r:'14px', w:'90px',  a:'anim-nod'},   // s7 洗濯card
+  {e:'gakkari',b:'60px',r:'14px', w:'95px',  a:'anim-nod'},   // s8 洗濯story
+  {e:'gakkari',b:'60px',r:'14px', w:'90px',  a:'anim-nod'},   // s9 時間card
+  {e:'gakkari',b:'60px',r:'14px', w:'95px',  a:'anim-nod'},   // s10 時間story
+  {e:'nayamu',b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s11 子どもcard
+  {e:'nayamu',b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s12 子どもstory
   {e:'anger',b:'60px', r:'14px', w:'90px',  a:'anim-shake'}, // s13 夫card
   {e:'anger',b:'60px', r:'14px', w:'95px',  a:'anim-shake'}, // s14 夫story
   {e:'anger',b:'60px', r:'14px', w:'90px',  a:'anim-shake'}, // s15 物価card
   {e:'anger',b:'60px', r:'14px', w:'95px',  a:'anim-shake'}, // s16 物価story
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s17 疲れcard
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s18 疲れstory
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s19 人間関係card
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s20 人間関係story
-  {e:'sad',  b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s21 将来card
-  {e:'sad',  b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s22 将来story
+  {e:'nayamu',b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s17 疲れcard
+  {e:'gakkari',b:'60px',r:'14px', w:'95px',  a:'anim-nod'},   // s18 疲れstory
+  {e:'nayamu',b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s19 人間関係card
+  {e:'nayamu',b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s20 人間関係story
+  {e:'nayamu',b:'60px', r:'14px', w:'90px',  a:'anim-nod'},   // s21 将来card
+  {e:'nayamu',b:'60px', r:'14px', w:'95px',  a:'anim-nod'},   // s22 将来story
   {e:'fun',  b:'60px', r:'14px', w:'90px',  a:'anim-bounce'},// s23 美容card
   {e:'fun',  b:'60px', r:'14px', w:'95px',  a:'anim-bounce'},// s24 美容story
   {e:'joy',  b:'100px',l:'calc(50% - 75px)', w:'150px', a:'anim-bounce'}, // s25 ありがとう
@@ -794,7 +822,7 @@ function updateChar(idx){
   wrap.style.left   = cfg.l || '';
   wrap.style.width  = cfg.w || '80px';
   // 表情切替
-  ['joy','anger','sad','fun'].forEach(e=>{
+  ['joy','anger','nayamu','gakkari','fun'].forEach(e=>{
     const el = document.getElementById('e-'+e);
     el.classList.toggle('on', e===cfg.e);
   });
