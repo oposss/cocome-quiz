@@ -29,5 +29,9 @@ def result():
 def ramen():
     return send_from_directory(_ROOT, "ramen_story.html")
 
+@app.route("/shufu")
+def shufu():
+    return send_from_directory(_ROOT, "shufu_story.html")
+
 # Vercel entry point
 handler = app
